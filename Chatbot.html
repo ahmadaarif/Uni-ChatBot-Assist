@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAST NU Chatbot</title>
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Query Processing</h1>
+    <h3>FAST NU Chatbot created using Langchain</h3>
+    <input type="text" id="queryInput" placeholder="Enter your query">
+    <button id="submitButton" onclick="submitQuery()">Submit</button>
+    <div id="outputDiv"></div>
+
+    <script>
+        function submitQuery() {
+            var query = document.getElementById("queryInput").value;
+            var data = JSON.stringify({ "query": query });
+
+            $.ajax({
+                type: "POST",
+                url: "/process_query/",
+                data: data,
+                contentType: "application/json",
+                success: function (response) {
+                    var result = response.result;
+                    document.getElementById("outputDiv").innerText = result;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
